@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Switch,
-  Redirect,
-  BrowserRouter as Router,
-} from 'react-router-dom';
+import { Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import AuthRouter from './AuthRouter';
 import JournalScreen from '../components/journal/JournalScreen';
 import { firebase } from '../firebase/firebase';
@@ -12,6 +8,7 @@ import { login } from '../actions/auth';
 import { useState } from 'react';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import { startLoadingNotes } from '../actions/notes';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -20,10 +17,11 @@ const AppRouter = () => {
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(async user => {
       if (user?.uid) {
         dispatch(login(user.uid, user.displayName));
         setIsLogged(true);
+        dispatch(startLoadingNotes(user.uid));
       } else {
         setIsLogged(false);
       }

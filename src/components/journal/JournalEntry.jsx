@@ -1,25 +1,33 @@
 import React from 'react';
+import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { activateNote } from '../../actions/notes';
 
-const JournalEntry = () => {
+const JournalEntry = ({ id, body, title, url, date }) => {
+  const noteDate = moment(date);
+  const dispatch = useDispatch();
+
+  const handleEntryClick = () => {
+    dispatch(activateNote(id, { date, title, body, url }));
+  };
+
   return (
-    <div className='journal__entry'>
-      <div
-        className='journal__entry-pic'
-        style={{
-          backgroundSize: 'cover',
-          backgroundImage:
-            'url(https://images.theconversation.com/files/268630/original/file-20190410-2905-t29uaz.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop)',
-        }}></div>
+    <div className='journal__entry' onClick={handleEntryClick}>
+      {url && (
+        <div
+          className='journal__entry-pic'
+          style={{
+            backgroundSize: 'cover',
+            backgroundImage: `url(${url})`,
+          }}></div>
+      )}
       <div className='journal__entry-body'>
-        <p className='journal__entry-tittle'>New Day</p>
-        <p className='journal__entry-content'>
-          Dolore duis enim nostrud qui voluptate non id ex.
-        </p>
+        <p className='journal__entry-tittle'>{title}</p>
+        <p className='journal__entry-content'>{body}</p>
       </div>
-
-      <div className="journal__entry-date">
-        <span>Monday</span>
-        <h4>30</h4>
+      <div className='journal__entry-date'>
+        <span>{noteDate.format('ddd')}</span>
+        <h4>{noteDate.format('D')}</h4>
       </div>
     </div>
   );

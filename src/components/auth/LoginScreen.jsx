@@ -35,7 +35,6 @@ const LoginScreen = () => {
   };
 
   const handleGoogleLogin = () => {
-    dispatch();
     dispatch(startGoogleLogin());
   };
 

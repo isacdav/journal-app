@@ -2,6 +2,7 @@ import Swal from 'sweetalert2';
 
 import { firebase, googleAuthProvider } from '../firebase/firebase';
 import { types } from '../types/types';
+import { cleanNotesLogout } from './notes';
 import { finishLoading, startLoading } from './ui';
 
 export const startLoginEmail = (email, password) => {
@@ -62,6 +63,7 @@ export const startLogout = () => {
     firebase.auth().signOut();
 
     dispatch(logout());
+    dispatch(cleanNotesLogout());
   };
 };
 
