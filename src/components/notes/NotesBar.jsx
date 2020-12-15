@@ -22,9 +22,11 @@ const NotesBar = () => {
     }
   };
 
+  const currentDate = new Date().toDateString();
+
   return (
     <div className='notes__bar'>
-      <span>October 30, 2020</span>
+      <span>{currentDate}</span>
       <input
         id='file_selector'
         type='file'
