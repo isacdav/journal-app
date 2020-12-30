@@ -47,6 +47,7 @@ const LoginScreen = () => {
         {msgError && <div className='auth__alert-error'>{msgError}</div>}
         <input
           className='auth__input'
+          id='input_email'
           type='email'
           placeholder='Email'
           name='email'
@@ -56,6 +57,7 @@ const LoginScreen = () => {
         />
         <input
           className='auth__input'
+          id='input_pass'
           type='password'
           placeholder='Password'
           name='password'

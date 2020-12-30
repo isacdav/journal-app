@@ -9,7 +9,7 @@ export const startLoginEmail = (email, password) => {
   return dispatch => {
     dispatch(startLoading());
 
-    firebase
+    return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(({ user }) => {
